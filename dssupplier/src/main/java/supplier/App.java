@@ -16,13 +16,16 @@ public class App
             String address = "http://localhost:6123/ds";
             String helloAddress = address + "/hello";
             String logRequestAddress = address + "/log-request";
+            String dorayakiAddress = address + "/dorayaki";
 
             // Publishing route.
             Endpoint.publish(helloAddress, new HelloImpl());
             Endpoint.publish(logRequestAddress, new LogRequestImpl());
+            Endpoint.publish(dorayakiAddress, new DorayakiImpl());
 
             System.out.println("Hello service created in " + helloAddress);
             System.out.println("Log request service created in " + logRequestAddress);
+            System.out.println("Dorayaki service created in " + dorayakiAddress);
 
         } catch (Exception e) {
             e.printStackTrace();

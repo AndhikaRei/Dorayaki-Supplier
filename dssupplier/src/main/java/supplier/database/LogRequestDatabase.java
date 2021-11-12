@@ -71,5 +71,5 @@ public class LogRequestDatabase {
         
         return "Success adding log request " + ip +" "+ endpoint + " " + currentTimestamp;
     }
-   
+    
 }
