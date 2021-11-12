@@ -1,0 +1,38 @@
+# version: '3'
+# services:
+#   ds_supplier:
+#     # Building Docker File.
+#     build:
+#       context: ../
+#       dockerfile: builds/server/Dockerfile
+#     env_file: ../.env
+#     volumes:
+#       - ../:/app
+#     ports:
+#     # TODO: recheck port
+#       - 6123:6123
+#     networks:
+#       - dbconnect
+#     depends_on:
+#       - mysql
+#   mysql:
+#     # The name of the container. This must be equal with MYSQL_HOST env.
+#     container_name: zhisuka_mariadb
+#     volumes:
+#       - dorayaki_mariadb_volumes:/var/lib/mysql
+#     build:
+#       context: ../
+#       dockerfile: builds/database/Dockerfile
+#     # Including env file.
+#     env_file: ../.env
+#     ports:
+#       # TODO: recheck port
+#       - 5001:3306
+#     networks:
+#       - dbconnect
+
+# # The networks between containers.
+# networks:
+#   dbconnect:
+#     driver: bridge
+
