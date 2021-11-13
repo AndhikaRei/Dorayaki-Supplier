@@ -36,8 +36,9 @@ public class LogRequestDatabase {
 
         // Get timestamp
         Timestamp currentTimestamp = new Timestamp(System.currentTimeMillis());
+        // TODO : Change back to 1 menit.
         // Default selama 1 menit.
-        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-60000);
+        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-10000);
             
         // Prepare and execute the statement.
         PreparedStatement statement = null;
@@ -55,7 +56,7 @@ public class LogRequestDatabase {
         ResultSet res = statement.executeQuery();
         res.next();
         int total = res.getInt(1);
-        if (total > 1){
+        if (total >= 1){
             throw(new Exception("Max request is one request per minute"));
         }
 
