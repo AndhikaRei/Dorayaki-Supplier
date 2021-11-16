@@ -12,11 +12,9 @@ import java.net.http.HttpResponse;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 // Import own package
 import supplier.database.*;
 import supplier.utility.*;
-
 
 @WebService(endpointInterface = "supplier.services.LogRequestService")
 public class LogRequestImpl implements LogRequestService{
@@ -26,7 +24,7 @@ public class LogRequestImpl implements LogRequestService{
     // Database object.
     private static final LogRequestDatabase logRequestDatabase = new LogRequestDatabase();
     // Backend pabrik base url.
-    private static final String urlBackendPabrik = "https://httpbin.org/post";
+    private static final String urlBackendPabrikRequest = "http://localhost:5000/api/v1/requests";
     
     @Override
     public String createLogRequestTable(){
@@ -57,6 +55,7 @@ public class LogRequestImpl implements LogRequestService{
             HashMap<String, String> values = new HashMap<String, String>() {{
                 put("name", dorayakiName);
                 put ("amount", Integer.toString(amount));
+                put ("ip", ip);
             }};
             ObjectMapper objectMapper = new ObjectMapper();
             String requestBody = objectMapper.writeValueAsString(values);
@@ -64,20 +63,25 @@ public class LogRequestImpl implements LogRequestService{
             // Create http client for sending request
             HttpClient client = HttpClient.newHttpClient();
             HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(urlBackendPabrik))
+                .uri(URI.create(urlBackendPabrikRequest))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .setHeader("User-Agent", "Java 11 HttpClient Bot") // add request header
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
                 .build();
             
-                // Log the response to cmd.
+            // Log the response to cmd.
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println(response.body());
-
+            if (response.statusCode() != 200){
+                throw new Exception("Failed to request, maybe dorayaki not exist in factory");
+            }
             return res;
 
         } catch (Exception e) {
-            // Failed to add log_request.
+            // Failed to add request_logs.
             e.printStackTrace();
             return "Error when adding log request, " + e.getMessage();
         }
     }
+
 }

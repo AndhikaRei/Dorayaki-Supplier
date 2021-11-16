@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.UUID;
 
 // Import own package
 public class LogRequestDatabase {
@@ -19,7 +20,7 @@ public class LogRequestDatabase {
             
         // Prepare and execute the statement.
         Statement statement = conn.createStatement();
-        String sql = "CREATE TABLE IF NOT EXISTS log_request " +
+        String sql = "CREATE TABLE IF NOT EXISTS request_logs " +
                 "(id INTEGER NOT NULL AUTO_INCREMENT , " +
                 " ip VARCHAR(255), " + 
                 " endpoint VARCHAR(255), " + 
@@ -43,7 +44,7 @@ public class LogRequestDatabase {
         // Prepare and execute the statement.
         PreparedStatement statement = null;
         String sql = "SELECT COUNT(*) as cnt " +
-                "FROM log_request " +
+                "FROM request_logs " +
                 "WHERE ip = ? AND " + 
                 "endpoint = ? AND " + 
                 "timestamp > ? ";
@@ -60,14 +61,18 @@ public class LogRequestDatabase {
             throw(new Exception("Max request is one request per minute"));
         }
 
-        // Add the log_request to database.
+        // Add the request_logs to database.
         // Prepare and execute the statement.
         PreparedStatement statement2 = null;
-        String sql2 = "INSERT INTO log_request(ip, endpoint, timestamp) VALUES (?, ?, ?)";
+        String uuid = UUID.randomUUID().toString();
+        String sql2 = "INSERT INTO request_logs(id, ip, endpoint, timestamp, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)";
         statement2 = conn.prepareStatement(sql2);
-        statement2.setString(1, ip);
-        statement2.setString(2, endpoint);
-        statement2.setTimestamp(3, currentTimestamp);
+        statement2.setString(1, uuid);
+        statement2.setString(2, ip);
+        statement2.setString(3, endpoint);
+        statement2.setTimestamp(4, currentTimestamp);
+        statement2.setTimestamp(5, currentTimestamp);
+        statement2.setTimestamp(6, currentTimestamp);
         statement2.executeUpdate();
         
         return "Success adding log request " + ip +" "+ endpoint + " " + currentTimestamp;

@@ -14,7 +14,5 @@ public interface DorayakiService {
     @WebMethod
     public List<String> getAllDorayakiName(String endpoint);
 
-    @WebMethod
-    public String addDorayakiStock(String dorayakiName, int amount);
 }
 
