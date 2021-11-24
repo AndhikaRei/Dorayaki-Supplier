@@ -18,7 +18,7 @@ public class RequestDatabase {
 
         // TODO : Change back to 1 menit.
         // Default selama 1 menit.
-        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-10000);
+        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-60000);
             
         // Prepare and execute the statement.
         PreparedStatement statement = null;
@@ -63,7 +63,7 @@ public class RequestDatabase {
 
         // TODO : Change back to 1 menit.
         // Default selama 1 menit.
-        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-10000);
+        Timestamp targetedTimestamp = new Timestamp(System.currentTimeMillis()-60000);
             
         // Prepare and execute the statement.
         PreparedStatement statement = null;

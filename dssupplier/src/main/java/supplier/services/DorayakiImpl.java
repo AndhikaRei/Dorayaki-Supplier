@@ -21,7 +21,6 @@ import supplier.utility.LogRequestUtility;
 @WebService(endpointInterface = "supplier.services.DorayakiService")
 public class DorayakiImpl implements DorayakiService {
     // Context of the Soap connection. 
-    // TODO: Change to real url
     // Backend pabrik base url.
     @Resource WebServiceContext context;
     private static final String urlBackendPabrik = "http://localhost:5000/api/v1/recipes/names";
