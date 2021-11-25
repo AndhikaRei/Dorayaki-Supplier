@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ArrayList;
 import org.json.JSONObject;
 import org.json.JSONArray;
-
+import io.github.cdimascio.dotenv.Dotenv;
 
 // Import own package.
 import supplier.database.LogRequestDatabase;
@@ -22,8 +22,9 @@ import supplier.utility.LogRequestUtility;
 public class DorayakiImpl implements DorayakiService {
     // Context of the Soap connection. 
     // Backend pabrik base url.
+    private static String SERVER_PORT = Dotenv.load().get("SERVER_PORT", "5000");
     @Resource WebServiceContext context;
-    private static final String urlBackendPabrik = "http://localhost:5000/api/v1/recipes/names";
+    private static final String urlBackendPabrik = "http://localhost:"+SERVER_PORT+"/api/v1/recipes/names";
 
     private static final LogRequestDatabase logRequestDatabase = new LogRequestDatabase();
     

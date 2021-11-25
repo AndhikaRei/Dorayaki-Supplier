@@ -11,6 +11,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.cdimascio.dotenv.Dotenv;
 
 // Import own package
 import supplier.database.*;
@@ -24,7 +25,8 @@ public class LogRequestImpl implements LogRequestService{
     // Database object.
     private static final LogRequestDatabase logRequestDatabase = new LogRequestDatabase();
     // Backend pabrik base url.
-    private static final String urlBackendPabrikRequest = "http://localhost:5000/api/v1/requests";
+    private static String SERVER_PORT = Dotenv.load().get("SERVER_PORT", "5000");
+    private static final String urlBackendPabrikRequest = "http://localhost:"+SERVER_PORT+"/api/v1/requests";
     
     @Override
     public String createLogRequestTable(){
