@@ -36,8 +36,8 @@ public class RequestDatabase {
         ResultSet res = statement.executeQuery();
         res.next();
         int total = res.getInt(1);
-        if (total >= 1){
-            throw(new Exception("Max request is one request per minute"));
+        if (total >= 3){
+            throw(new Exception("Max request is three request per minute"));
         }
 
         // Get all accepted request but not recognized.
@@ -81,8 +81,8 @@ public class RequestDatabase {
         ResultSet res = statement.executeQuery();
         res.next();
         int total = res.getInt(1);
-        if (total >= 1){
-            throw(new Exception("Max request is one request per minute"));
+        if (total >= 3){
+            throw(new Exception("Max request is one three request per minute"));
         }
 
         // Get all accepted request but not recognized.
