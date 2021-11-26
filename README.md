@@ -71,3 +71,8 @@ Service
 | timestamp   | datetime        |
 
 ## Pembagian Kerja
+- Dorayaki Service : 13519043, 13519167
+- Log Request Service : 13519043
+- Request Service : 13519043, 13519167
+- Rate Limiting : 13519043 
+- Database Handling & Other Utility : 13519043
